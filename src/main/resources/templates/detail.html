@@ -10,7 +10,7 @@
 <body class="container">
 <div class="card mt-5 mx-auto" style="width: 35rem;">
     <div class="card-body">
-        <h1 class="text-center card-title">Détail d'un Etudiant</h1>
+        <h1 class="text-center card-title">Détail de <span th:text="${student.lastName }+' '+${ student.firstName}"></span></h1>
         <hr>
         <p class="card-text"><strong>Nom :</strong> <span th:text="${student.lastName}"></span></p>
         <p class="card-text"><strong>Prénom :</strong> <span th:text="${student.firstName}"></span></p>

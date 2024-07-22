@@ -56,7 +56,9 @@ public class StudentController {
     }
 
     @GetMapping("/search")
-    public String showContact(@RequestParam (value="studentFirstName" )String name, Model model) {
+    public String showContact(@RequestParam(value = "studentFirstName") String name, Model model) {
+        // Nettoyer et normaliser l'entrée de recherche
+        name = name.trim();
         Student student = studentService.findStudentByName(name);
         if (student != null) {
             model.addAttribute("student", student);

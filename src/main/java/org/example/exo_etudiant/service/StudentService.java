@@ -1,58 +1,56 @@
 package org.example.exo_etudiant.service;
 
 import org.example.exo_etudiant.model.Student;
+import org.example.exo_etudiant.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StudentService {
 
-    private Long id = 1L;
-    private List<Student> students;
+    private final StudentRepository studentRepository;
 
-    public StudentService() {
-        this.students = new ArrayList<>();
+
+    public StudentService(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
     }
 
     public Student findStudentByName(String search) {
-        return students.stream().filter(student -> student.getFirstName().equals(search) ||
-                student.getLastName().equals(search)).findFirst().orElse(null);
+        Student student = studentRepository.findByFirstNameIgnoreCase(search);
+        if (student == null) {
+            student = studentRepository.findByLastNameIgnoreCase(search);
+        }
+        return student;
     }
 
     public List<Student> getAllStudents() {
-        return students;
+        return (List<Student>) studentRepository.findAll();
     }
 
     public void createStudent(Student student) {
-        student.setId(id++);
-        students.add(student);
+        studentRepository.save(student);
     }
 
     public void updateStudent(Student updatedStudent) {
-        Optional<Student> student1 = students.stream()
-                .filter(student -> student.getId() == updatedStudent.getId())
-                .findFirst();
-
-        if (student1.isEmpty())
-            return;
-
-        Student student = student1.get();
-        student.setFirstName(updatedStudent.getFirstName());
-        student.setLastName(updatedStudent.getLastName());
-        student.setAge(updatedStudent.getAge());
-        student.setEmail(updatedStudent.getEmail());
-
+        Optional<Student> optionalStudent = studentRepository.findById(updatedStudent.getId());
+        if (optionalStudent.isPresent()) {
+            Student student = optionalStudent.get();
+            student.setFirstName(updatedStudent.getFirstName());
+            student.setLastName(updatedStudent.getLastName());
+            student.setAge(updatedStudent.getAge());
+            student.setEmail(updatedStudent.getEmail());
+            studentRepository.save(student);
+        }
     }
 
     public void deleteStudent(Long studentId) {
-        students.removeIf(student -> student.getId() == studentId);
+        studentRepository.deleteById(studentId);
     }
 
     public Student findById(Long id) {
-        return students.stream().filter(student -> student.getId() == id).findFirst().orElse(null);
+        return studentRepository.findById(id).orElse(null);
     }
 }
-
-
