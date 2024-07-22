@@ -16,8 +16,9 @@ public class StudentService {
         this.students = new ArrayList<>();
     }
 
-    public Student findStudentByName(String name) {
-        return students.stream().filter(student -> student.getFirstName().equals(name)).findFirst().orElse(null);
+    public Student findStudentByName(String search) {
+        return students.stream().filter(student -> student.getFirstName().equals(search) ||
+                student.getLastName().equals(search)).findFirst().orElse(null);
     }
 
     public List<Student> getAllStudents() {
