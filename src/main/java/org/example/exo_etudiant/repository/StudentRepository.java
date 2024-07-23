@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
 public interface StudentRepository extends CrudRepository<Student, Long> {
     Student findByFirstNameIgnoreCase(String firstName);
     Student findByLastNameIgnoreCase(String lastName);
-    s
+    
 }
