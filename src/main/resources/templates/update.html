@@ -7,32 +7,41 @@
           rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
           crossorigin="anonymous">
 </head>
-<body class="container">
+<body class="container mt-5">
 
-<h1>- Mise à jour de l'étudiant -</h1>
+<h1 class="text-center mb-4">Mise à jour de l'étudiant</h1>
 
-<form th:action="@{/update}" method="post" th:object="${student}">
+<form th:action="@{/update}" method="post" th:object="${student}" class="mx-auto" style="max-width: 600px;">
     <input th:field="*{id}" type="hidden">
-    <div class="form-row">
-        <div class="form-group col-md-3">
-            <label for="lastName">Nom</label>
-            <input type="text" class="form-control" id="lastName" placeholder="Nom de Famille" th:field="*{lastName}">
+
+    <!-- Utilisation de la grille pour un alignement cohérent des champs -->
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label for="lastName" class="form-label">Nom</label>
+            <input type="text" class="form-control" id="lastName" placeholder="Nom de Famille" th:field="*{lastName}" required>
         </div>
-        <div>
-            <label for="firstName">Prénom</label>
-            <input type="text" class="form-control" id="firstName" placeholder="Votre Prénom" th:field="*{firstName}">
-        </div>
-        <div>
-            <label for="age">Age</label>
-            <input type="number" class="form-control" id="age" placeholder="Votre âge" th:field="*{age}"/>
-        </div>
-        <div>
-            <label for="email">E-Mail</label>
-            <input type="email" class="form-control" id="email" placeholder="Votre E-mail" th:field="*{email}">
+        <div class="col-md-6">
+            <label for="firstName" class="form-label">Prénom</label>
+            <input type="text" class="form-control" id="firstName" placeholder="Votre Prénom" th:field="*{firstName}" required>
         </div>
     </div>
-    <button type="submit" class="btn btn-primary">Mettre à jour</button>
+
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label for="age" class="form-label">Âge</label>
+            <input type="number" class="form-control" id="age" placeholder="Votre âge" th:field="*{age}" min="0" required>
+        </div>
+        <div class="col-md-6">
+            <label for="email" class="form-label">E-Mail</label>
+            <input type="email" class="form-control" id="email" placeholder="Votre E-mail" th:field="*{email}" required>
+        </div>
+    </div>
+
+    <div class="text-center">
+        <button type="submit" class="btn btn-primary">Mettre à jour</button>
+    </div>
 </form>
+
 
 </body>
 </html>

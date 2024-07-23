@@ -18,20 +18,32 @@
             <div class="col-md-6">
                 <label for="lastName" class="form-label">Nom</label>
                 <input type="text" class="form-control" id="lastName" placeholder="Nom de Famille"
-                       th:field="*{lastName}" required>
+                       th:field="*{lastName}">
+                <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"  class="badge rounded-pill text-bg-info">
+
+                </span>
             </div>
             <div class="col-md-6">
                 <label for="firstName" class="form-label">Prénom</label>
                 <input type="text" class="form-control" id="firstName" placeholder="Votre Prénom"
-                       th:field="*{firstName}" required>
+                       th:field="*{firstName}">
+                <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"  class="badge rounded-pill text-bg-info">
+
+                </span>
             </div>
             <div class="col-md-6">
                 <label for="age" class="form-label">Age</label>
-                <input type="number" class="form-control" id="age" placeholder="Votre âge" th:field="*{age}" min="0" required>
+                <input type="number" class="form-control" id="age" placeholder="Votre âge" th:field="*{age}" min="0">
+                <span th:if="${#fields.hasErrors('age')}" th:errors="*{age}"  class="badge rounded-pill text-bg-info">
+
+                </span>
             </div>
             <div class="col-md-6">
                 <label for="email" class="form-label">E-Mail</label>
-                <input type="email" class="form-control" id="email" placeholder="Votre E-mail" th:field="*{email}" required>
+                <input type="email" class="form-control" id="email" placeholder="Votre E-mail" th:field="*{email}">
+                <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"  class="badge rounded-pill text-bg-info">
+
+                </span>
             </div>
         </div>
         <div class="d-flex justify-content-center mt-4">

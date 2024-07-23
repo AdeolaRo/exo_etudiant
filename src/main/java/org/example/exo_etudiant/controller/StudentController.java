@@ -1,5 +1,6 @@
 package org.example.exo_etudiant.controller;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -7,9 +8,9 @@ import org.example.exo_etudiant.model.Student;
 import org.example.exo_etudiant.service.StudentService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Setter
@@ -39,7 +40,10 @@ public class StudentController {
     }
 
     @PostMapping("/form")
-    public String submitContact(@ModelAttribute("student") Student student) {
+    public String submitStudent(@Valid @ModelAttribute("student") Student student, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()) {
+            return "form";
+        }
         studentService.createStudent(student);
         return "redirect:/list";
     }
@@ -63,9 +67,8 @@ public class StudentController {
         if (student != null) {
             model.addAttribute("student", student);
             return "detail";
-        } else {
-            return "home";
         }
+            return "/error/404";
     }
 
     @GetMapping("/update/{id}")
